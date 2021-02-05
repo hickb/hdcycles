@@ -755,6 +755,8 @@ _PopulateAttribute(const TfToken& name, const TfToken& role,
                    HdInterpolation interpolation, const VtValue& value,
                    ccl::Attribute* attr, HdCyclesMesh* mesh)
 {
+//    std::cout << "Populate " << name << " " << interpolation << std::endl;
+
     if (interpolation == HdInterpolationVertex) {
         if (value.IsHolding<VtArray<float>>()) {
             _PopulateAttribte_Vertex<float, float>(value, attr);
@@ -789,6 +791,7 @@ _PopulateAttribute(const TfToken& name, const TfToken& role,
         }
 
     } else if (interpolation == HdInterpolationUniform) {
+        std::cout << value.GetArraySize() << " " << mesh->GetFaceVertexCounts().size() << std::endl;
         if (value.GetArraySize() > mesh->GetFaceVertexCounts().size()) {
             std::cout << "Oversized...\n";
             return;
